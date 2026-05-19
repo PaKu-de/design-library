@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IONOS EXOS — DESIGN.md Preview</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Overpass:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff8800;
+            --primary-hover: #cc6e00;
+            --primary-soft: #ffdbb2;
+            --secondary: #2944cc;
+            --surface: #ffffff;
+            --surface-elevated: #ffffff;
+            --surface-muted: #f7f7f9;
+            --surface-inverted: #2e3842;
+            --on-surface: #2e3842;
+            --on-surface-strong: #1b1b1b;
+            --on-surface-muted: #8493b3;
+            --on-surface-subtle: #ccd5e3;
+            --on-surface-inverted: #f7f7f9;
+            --border: #dee2e6;
+            --border-strong: #8493b3;
+            --success: #256f25;
+            --success-shape: #2af7bb;
+            --warning: #86510d;
+            --warning-shape: #ffbf10;
+            --critical: #e20000;
+            --critical-shape: #ff2a2a;
+            --info: #1a4079;
+
+            --rounded-xs: 4px;
+            --rounded-sm: 8px;
+            --rounded-md: 16px;
+            --rounded-button: 24px;
+
+            --space-xxs: 4px;
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+
+            --shadow-card: 0 1px 5px -3px #031a4a24;
+            --shadow-card-hover: 0 2px 10px -2px #031a4a24;
+
+            --font-head: 'Overpass', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--surface-muted);
+            color: var(--on-surface);
+            font-family: var(--font-body);
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        /* Top bar */
+        .topbar {
+            background: var(--surface-inverted);
+            color: var(--on-surface-inverted);
+            padding: 0 var(--space-lg);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xl);
+        }
+
+        .topbar .logo {
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 22px;
+            color: var(--primary);
+        }
+
+        .topbar nav {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .topbar nav a {
+            color: var(--on-surface-inverted);
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+        }
+
+        .topbar nav a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: var(--space-xxl) var(--space-lg);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-head);
+            font-weight: 600;
+            color: var(--on-surface-strong);
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            line-height: 38px;
+            margin-bottom: var(--space-md);
+        }
+
+        h2 {
+            font-size: 22px;
+            line-height: 28px;
+            margin: var(--space-xl) 0 var(--space-md);
+        }
+
+        h3 {
+            font-size: 16px;
+            line-height: 22px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .lead {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 22px;
+            color: var(--on-surface-muted);
+            max-width: 720px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Color swatches */
+        .palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .swatch {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--rounded-md);
+            padding: var(--space-md);
+            font-size: 12px;
+        }
+
+        .swatch .chip {
+            width: 100%;
+            height: 56px;
+            border-radius: var(--rounded-sm);
+            border: 1px solid var(--border);
+            margin-bottom: var(--space-sm);
+        }
+
+        .swatch .name {
+            font-weight: 600;
+            color: var(--on-surface);
+        }
+
+        .swatch .hex {
+            color: var(--on-surface-muted);
+            font-family: monospace;
+        }
+
+        /* Card */
+        .card {
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--rounded-md);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-card);
+            transition: box-shadow 250ms, transform 250ms;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: var(--font-head);
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            padding: 4px 20px;
+            height: 32px;
+            border-radius: var(--rounded-button);
+            border: 2px solid transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 150ms, color 150ms, border-color 150ms;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--on-surface);
+            border-color: var(--border-strong);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-muted);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--secondary);
+            border-color: transparent;
+        }
+
+        .btn-ghost:hover {
+            background: var(--surface-muted);
+        }
+
+        .btn-destructive {
+            background: var(--critical);
+            color: #fff;
+        }
+
+        .btn-destructive:hover {
+            background: #b00000;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        /* Input */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xxs);
+            margin-bottom: var(--space-sm);
+        }
+
+        .field label {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--on-surface);
+        }
+
+        .input {
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 8px 12px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: var(--rounded-sm);
+            background: var(--surface);
+            color: var(--on-surface);
+            transition: border-color 150ms, box-shadow 150ms;
+        }
+
+        .input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(41, 68, 204, 0.3);
+        }
+
+        .input.error {
+            border-color: var(--critical-shape);
+        }
+
+        .input.error+.helper {
+            color: var(--critical);
+        }
+
+        .helper {
+            font-size: 12px;
+            color: var(--on-surface-muted);
+        }
+
+        /* Table */
+        .table-card {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--surface-muted);
+        }
+
+        th {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 12px;
+            text-align: left;
+            color: var(--on-surface-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: var(--surface-muted);
+        }
+
+        tbody tr.selected {
+            background: var(--primary-soft);
+            box-shadow: inset 4px 0 0 var(--primary);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xxs);
+            padding: 2px 10px;
+            border-radius: var(--rounded-button);
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-body);
+        }
+
+        .badge-success {
+            background: #dbebde;
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: #ffeddc;
+            color: var(--warning);
+        }
+
+        .badge-critical {
+            background: #ffe0ed;
+            color: var(--critical);
+        }
+
+        .badge-info {
+            background: #dde4f3;
+            color: var(--info);
+        }
+
+        /* Page message / toast */
+        .message {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-radius: var(--rounded-sm);
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            margin-bottom: var(--space-md);
+        }
+
+        .message .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .message-success .dot {
+            background: var(--success-shape);
+        }
+
+        .message-warning .dot {
+            background: var(--warning-shape);
+        }
+
+        .message-critical .dot {
+            background: var(--critical-shape);
+        }
+
+        .message strong {
+            font-family: var(--font-head);
+        }
+
+        .message-text {
+            font-size: 14px;
+            color: var(--on-surface);
+        }
+
+        .message-muted {
+            font-size: 12px;
+            color: var(--on-surface-muted);
+            margin-top: 2px;
+        }
+
+        /* Type ladder */
+        .type-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: var(--space-md);
+            align-items: baseline;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .type-row:last-child {
+            border-bottom: none;
+        }
+
+        .type-row .label {
+            font-size: 12px;
+            color: var(--on-surface-muted);
+            font-family: monospace;
+        }
+
+        .a11y-warn {
+            background: #fff4d1;
+            border: 1px solid var(--warning-shape);
+            border-radius: var(--rounded-sm);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            font-size: 13px;
+            color: var(--warning);
+        }
+
+        .a11y-warn strong {
+            color: var(--on-surface-strong);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">IONOS</div>
+        <nav>
+            <a href="#">Hosting</a>
+            <a href="#">Cloud</a>
+            <a href="#">Domains</a>
+            <a href="#">Support</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>IONOS EXOS Design System</h1>
+        <p class="lead">A live preview rendered from your <code>DESIGN.md</code> tokens. This is what the IONOS visual
+            language looks like in HTML — pill-shaped buttons, generous 16px card radius, Overpass headlines paired with
+            Open Sans body, and the signature orange reserved for primary actions.</p>
+
+        <h2>Colors</h2>
+        <div class="palette">
+            <div class="swatch">
+                <div class="chip" style="background: var(--primary);"></div>
+                <div class="name">primary</div>
+                <div class="hex">#ff8800</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--primary-soft);"></div>
+                <div class="name">primary-soft</div>
+                <div class="hex">#ffdbb2</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--secondary);"></div>
+                <div class="name">secondary</div>
+                <div class="hex">#2944cc</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--surface-muted);"></div>
+                <div class="name">surface-muted</div>
+                <div class="hex">#f7f7f9</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--surface-inverted);"></div>
+                <div class="name">surface-inverted</div>
+                <div class="hex">#2e3842</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--on-surface);"></div>
+                <div class="name">on-surface</div>
+                <div class="hex">#2e3842</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--on-surface-muted);"></div>
+                <div class="name">on-surface-muted</div>
+                <div class="hex">#8493b3</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--success-shape);"></div>
+                <div class="name">success</div>
+                <div class="hex">#2af7bb</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--warning-shape);"></div>
+                <div class="name">warning</div>
+                <div class="hex">#ffbf10</div>
+            </div>
+            <div class="swatch">
+                <div class="chip" style="background: var(--critical-shape);"></div>
+                <div class="name">critical</div>
+                <div class="hex">#ff2a2a</div>
+            </div>
+        </div>
+
+        <h2>Typography</h2>
+        <div class="card">
+            <div class="type-row"><span class="label">h1 / 32</span>
+                <h1 style="margin:0">Hosting that scales with you</h1>
+            </div>
+            <div class="type-row"><span class="label">h2 / 22</span>
+                <h2 style="margin:0">Your cloud, your control</h2>
+            </div>
+            <div class="type-row"><span class="label">h3 / 16</span>
+                <h3 style="margin:0">Choose your plan</h3>
+            </div>
+            <div class="type-row"><span class="label">body-lg / 16</span>
+                <p style="margin:0; font-size:16px; line-height:22px;">Open Sans at 16px for lead paragraphs. Reads
+                    comfortably even at smaller widths.</p>
+            </div>
+            <div class="type-row"><span class="label">body-md / 14</span>
+                <p style="margin:0">Default body text — Open Sans 14px, the workhorse of the interface.</p>
+            </div>
+            <div class="type-row"><span class="label">body-sm / 12</span>
+                <p style="margin:0; font-size:12px; line-height:18px; color:var(--on-surface-muted);">Caption text for
+                    metadata and footnotes.</p>
+            </div>
+        </div>
+
+        <h2>Buttons</h2>
+        <div class="card">
+            <div class="btn-row">
+                <button class="btn btn-primary">Primary action</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-ghost">Ghost</button>
+                <button class="btn btn-destructive">Destructive</button>
+                <button class="btn btn-primary" disabled style="opacity:0.4; cursor:not-allowed;">Disabled</button>
+            </div>
+        </div>
+
+        <h2>Forms</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="field">
+                    <label for="email">Email address</label>
+                    <input id="email" class="input" placeholder="patrick@example.com" />
+                    <span class="helper">We'll only use this for account updates.</span>
+                </div>
+                <div class="field">
+                    <label for="domain">Domain</label>
+                    <input id="domain" class="input" value="myproject.io" />
+                </div>
+                <div class="field">
+                    <label for="bad">Invalid field</label>
+                    <input id="bad" class="input error" value="invalid value" />
+                    <span class="helper">This field is required.</span>
+                </div>
+                <button class="btn btn-primary" style="margin-top: var(--space-md);">Save changes</button>
+            </div>
+            <div class="card">
+                <h3>Status messages</h3>
+                <div class="message message-success">
+                    <div class="dot"></div>
+                    <div>
+                        <strong>Domain registered</strong>
+                        <div class="message-muted">myproject.io is now active.</div>
+                    </div>
+                </div>
+                <div class="message message-warning">
+                    <div class="dot"></div>
+                    <div>
+                        <strong>Renewal due soon</strong>
+                        <div class="message-muted">Your plan renews in 7 days.</div>
+                    </div>
+                </div>
+                <div class="message message-critical">
+                    <div class="dot"></div>
+                    <div>
+                        <strong>Payment failed</strong>
+                        <div class="message-muted">Please update your billing method.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Table</h2>
+        <div class="card table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Domain</th>
+                        <th>Status</th>
+                        <th>Expires</th>
+                        <th style="text-align:right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="selected">
+                        <td>myproject.io</td>
+                        <td><span class="badge badge-success">Active</span></td>
+                        <td>2027-05-12</td>
+                        <td style="text-align:right"><button class="btn btn-ghost"
+                                style="height:28px; padding:0 12px; font-size:12px;">Manage</button></td>
+                    </tr>
+                    <tr>
+                        <td>example.com</td>
+                        <td><span class="badge badge-warning">Renewal due</span></td>
+                        <td>2026-06-01</td>
+                        <td style="text-align:right"><button class="btn btn-ghost"
+                                style="height:28px; padding:0 12px; font-size:12px;">Renew</button></td>
+                    </tr>
+                    <tr>
+                        <td>staging.dev</td>
+                        <td><span class="badge badge-critical">Expired</span></td>
+                        <td>2026-05-01</td>
+                        <td style="text-align:right"><button class="btn btn-ghost"
+                                style="height:28px; padding:0 12px; font-size:12px;">Reactivate</button></td>
+                    </tr>
+                    <tr>
+                        <td>portfolio.de</td>
+                        <td><span class="badge badge-info">Pending</span></td>
+                        <td>—</td>
+                        <td style="text-align:right"><button class="btn btn-ghost"
+                                style="height:28px; padding:0 12px; font-size:12px;">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Cards</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>Web Hosting</h3>
+                <p style="color: var(--on-surface-muted); margin: var(--space-xs) 0 var(--space-md);">Reliable hosting
+                    starting at €4/month with 99.99% uptime.</p>
+                <button class="btn btn-primary">Get started</button>
+            </div>
+            <div class="card">
+                <h3>Cloud Servers</h3>
+                <p style="color: var(--on-surface-muted); margin: var(--space-xs) 0 var(--space-md);">Scalable VPS with
+                    dedicated resources and root access.</p>
+                <button class="btn btn-secondary">Compare plans</button>
+            </div>
+            <div class="card">
+                <h3>Domain Names</h3>
+                <p style="color: var(--on-surface-muted); margin: var(--space-xs) 0 var(--space-md);">Register your
+                    domain with free privacy protection.</p>
+                <button class="btn btn-secondary">Search domains</button>
+            </div>
+        </div>
+
+        <div class="a11y-warn">
+            <strong>A11y note:</strong> IONOS Orange (#ff8800) on white has a contrast ratio of 2.39:1, below WCAG AA
+            threshold of 4.5:1 for body text. This is acceptable on this preview because orange is used only on button
+            backgrounds (paired with white text — see your DESIGN.md's "use orange only for UI elements ≥18px or as
+            background-with-white-text" note) and as a brand accent. For body text and small UI, the deep
+            <code>secondary</code> blue (#2944cc) is the safer choice.
+        </div>
+
+    </main>
+
+</body>
+
+</html>
